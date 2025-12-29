@@ -1,15 +1,14 @@
 
 -- This is the first commands i wrote to create my database & my tables . 
 
-create DATABASE DigitalGardenproject;
-use DigitalGardenproject;
+create DATABASE DigitalGardenprojectOOP;
+use DigitalGardenprojectOOP;
    create table Users (
       id int PRIMARY KEY AUTO_INCREMENT,
       name varchar(30),
       userName varchar(40),
       passsword varchar(40),
       createdDate date
-      status_id
    );
    create table Themes (
       id int PRIMARY KEY AUTO_INCREMENT,
@@ -26,6 +25,11 @@ use DigitalGardenproject;
    createdDate date,
    associatedThemeId int,
    FOREIGN KEY (associatedThemeId) REFERENCES Themes(id)
+   );
+
+   create table role (
+       id int PRIMARY KEY AUTO_INCREMENT,
+       role_name varchar(10)
    );
 
 
