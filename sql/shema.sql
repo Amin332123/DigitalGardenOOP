@@ -9,6 +9,7 @@ use DigitalGardenproject;
       userName varchar(40),
       passsword varchar(40),
       createdDate date
+      status_id
    );
    create table Themes (
       id int PRIMARY KEY AUTO_INCREMENT,
