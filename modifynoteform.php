@@ -169,13 +169,15 @@ if (!isset($_SESSION['id'])) {
       <input type="text" placeholder="Enter note title" id="noteTitle" name="noteTitle" value="<?= $_SESSION["notetitle"] ?>">
 
       <label>Importance (Stars)</label>
-      <input type="number" min="0" max="5"  name="noteImportance" value="<?= $_SESSION["importance"] ?>">
+      <input type="number" min="0" max="5"  name="noteImportance" value="   ">
 
       <label>Content</label>
-      <textarea class="note-textarea" maxlength="600"  name="noteContent"><?=  $_SESSION["noteContent"]?></textarea>
+      <textarea class="note-textarea" maxlength="600"  name="noteContent">
+      <!-- //  $_SESSION["noteContent"] -->
+      </textarea>
       <small class="word-counter">0 / 100 words</small>
        <input type="hidden" name="modifing" value="modifidnote">
-       <input type="hidden" name="noteidd" value="<?= $_SESSION["noteidd"] ?>">
+       <input type="hidden" name="noteidd" value="   ">
     
       <div class="btns">
         <button type="submit" class="create-btn">update</button>

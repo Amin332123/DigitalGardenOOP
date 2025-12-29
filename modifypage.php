@@ -1,8 +1,9 @@
-<?php session_start(); 
-if (!isset($_SESSION['id'])) {
-     header("Location: login.php");
-    exit;
-}?>
+<!-- < -->
+<!-- // session_start(); 
+// if (!isset($_SESSION['id'])) {
+//      header("Location: login.php");
+//     exit;
+// } -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,7 +146,7 @@ if (!isset($_SESSION['id'])) {
                        name="themeName"
                        class="input-dark"
                        id="themename"
-                       value="<?=  $_SESSION["themetitle"]?>"
+                       value="  "
                        >
             </div>
 
@@ -154,13 +155,13 @@ if (!isset($_SESSION['id'])) {
                 <input type="number"
                       
                        name="maxNotes"
-                       value="<?=  $_SESSION["thememaxNotes"] ?>"
+                       value=" "
                        >
             </div>
 
             <span>Background Color :</span>
             <input type="color"
-                   value="<?=  $_SESSION["backgroundcolor"] ?>"
+                   value="  "
                    name="backgroundColor"
                   >
 

@@ -3,27 +3,26 @@
 // if (empty($_SESSION['id'])) {
 //     header("Location: http://digitalgarden.test/login.php");
 // }
-session_start();
-if (!isset($_SESSION['id'])) {
-    header("Location: login.php");
-    exit;
-}
-?>
+// session_start();
+// if (!isset($_SESSION['id'])) {
+//     header("Location: login.php");
+//     exit;
+// }
+// ?>
 <link rel="stylesheet" href="public/public/style/dashboard.css">
 <link rel="stylesheet" href="public/public/style/style.css">
 <section class="user-dashboard">
   <h1 class="user-name" id="userRegisteredName">Welcome, 
-  <?php ; 
+  <?php  
   
-  if ($_SESSION['checker'] == false) {
-    echo " " .  $_SESSION['fullname'];
-  } else {
-    echo " " . $_SESSION['userName'];
-  }
+  // if ($_SESSION['checker'] == false) {
+  //   echo " " .  $_SESSION['fullname'];
+  // } else {
+  //   echo " " . $_SESSION['userName'];
+  // }
   
   
-  
-  ?>
+   ?> 
   👋</h1>
 
   <p class="user-info">
@@ -32,11 +31,11 @@ if (!isset($_SESSION['id'])) {
 
 
 
-    if ($_SESSION['checker'] == false) {
-        echo " " . $_SESSION['createDate'];
-    } else {
-        echo " " . $_SESSION['createddDate'];
-    }  
+    // if ($_SESSION['checker'] == false) {
+    //     echo " " . $_SESSION['createDate'];
+    // } else {
+    //     echo " " . $_SESSION['createddDate'];
+    // }  
     
     
     

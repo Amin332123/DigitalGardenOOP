@@ -24,8 +24,8 @@ include("config/db_connect.php");
             
             <div class="stat-card">
                 <h3><?php
-                    $result = $conn->query("SELECT * FROM Users;");
-                    echo $result->num_rows;
+                    // $result = $conn->query("SELECT * FROM Users;");
+                    // echo $result->num_rows;
 
 
                     ?>+</h3>
@@ -33,8 +33,8 @@ include("config/db_connect.php");
             </div>
             <div class="stat-card">
                 <h3><?php 
-                $result = $conn->query("SELECT * FROM Notes;");
-                    echo $result->num_rows;
+                // $result = $conn->query("SELECT * FROM Notes;");
+                //     echo $result->num_rows;
                 
                 
                 ?>+</h3>
@@ -42,8 +42,8 @@ include("config/db_connect.php");
             </div>
             <div class="stat-card">
                 <h3><?php 
-                $result = $conn->query("SELECT * FROM Themes;");
-                    echo $result->num_rows;
+                // $result = $conn->query("SELECT * FROM Themes;");
+                //     echo $result->num_rows;
                 
                 
                 ?>+</h3>

@@ -4,17 +4,17 @@ include("includes/headerregistred.php");
 include("config/database.php");
 
 
-if (!isset($_SESSION['id'])) {
-    header("Location: login.php");
-    exit;
-}
-//  displayNotes($conn);
-$sqlNote = "select themeName , Notes.id , title, importance, Notes.createdDate , content from Notes , Themes where associatedThemeId = '{$_SESSION['AssociatedThemeId']}' and Themes.id = '{$_SESSION['AssociatedThemeId']}' ";
-$result = $conn->query($sqlNote);
-$Notes = [];
-while ($row = $result->fetch_assoc()) {
-  $Notes[] = $row;
-}
+// if (!isset($_SESSION['id'])) {
+//     header("Location: login.php");
+//     exit;
+// }
+// //  displayNotes($conn);
+// $sqlNote = "select themeName , Notes.id , title, importance, Notes.createdDate , content from Notes , Themes where associatedThemeId = '{$_SESSION['AssociatedThemeId']}' and Themes.id = '{$_SESSION['AssociatedThemeId']}' ";
+// $result = $conn->query($sqlNote);
+// $Notes = [];
+// while ($row = $result->fetch_assoc()) {
+//   $Notes[] = $row;
+// }
 
 
 
@@ -79,42 +79,55 @@ while ($row = $result->fetch_assoc()) {
 
 
   <?php
-  foreach ($Notes as $Note) {
+  // foreach ($Notes as $Note) {
 
   ?>
 
 
     <div class="notes-grid">
       <div class="note-card">
-        <h3 class="note-title">Title : <?php echo $Note["title"] ?></h3>
+        <h3 class="note-title">Title : <?php
+        //  echo $Note["title"]
+        ?></h3>
 
         <div class="notecontent">
           <h4 style="visibility: hidden;">Content : </h4>
           <div class="noteconnteent">
-            <?php echo $Note["content"] ?>
+            <?php
+            //  echo $Note["content"]
+            ?>
           </div>
         </div>
 
         <p class="note-stars">importance : <?php
-                                            for ($i = 0; $i < $Note["importance"]; $i++) {
-                                              echo '<span class="star" >★</span>';
-                                            } ?></p>
-        <p class="note-date">Created Date : <?php echo  $Note["createdDate"] ?></p>
-        <p class="note-theme">Assosiated Theme :<?php echo  $Note["themeName"] ?></p>
+
+        // for ($i = 0; $i < $Note["importance"]; $i++) {
+        //                                       echo '<span class="star" >★</span>';
+                                            // }
+                                             ?></p>
+        <p class="note-date">Created Date : <?php
+        //  echo  $Note["createdDate"] 
+        
+        ?></p>
+        <p class="note-theme">Assosiated Theme :<?php 
+        // echo  $Note["themeName"] 
+        ?></p>
 
         <div class="note-actions">
           <button class="view-btn">View Content</button>
           <form action="config/database.php" method="POST" style="background-color: #0b84e8; border-radius: 10px;">
             <button type="sumbit" style="background-color: #0b84e8; color: white;">Modify</button>
-            <input type="hidden" name="noteidmodify" value="<?= $Note["id"] ?>">
+            <input type="hidden" name="noteidmodify" value="">
           </form>
           <form action="config/database.php" method="POST">
             <button type="submit" class="delete-btn">Delete</button>
-            <input type="hidden" name="noteid" value="<?= $Note["id"] ?>">
+            <input type="hidden" name="noteid" value=" ">
           </form>
         </div>
       </div>
-    </div> <?php } ?>
+    </div> <?php
+  //  } 
+   ?>
 
 
 
