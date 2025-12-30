@@ -1,5 +1,5 @@
 <?php include("includes/header.php"); 
-// session_start();
+
 ?>
 
 <link rel="stylesheet" href="public/public/style/style.css">
@@ -16,7 +16,7 @@
       <input type="password" name="password" placeholder="Password" class="input-field" id="checkPassword" required>
     </div>
     <input type="hidden" name="formType" value="login">
-    <button type="submit" class="login-button">Log In</button>
+    <button type="submit" class="login-button" name="logIn">Log In</button>
   </form>
 
   <p class="signup-text">
