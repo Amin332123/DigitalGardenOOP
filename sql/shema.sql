@@ -8,7 +8,10 @@ use DigitalGardenprojectOOP;
       name varchar(30),
       userName varchar(40),
       passsword varchar(40),
-      createdDate date
+      createdDate date,
+      role_ID int,
+      status ENUM("Pending" , "Active" , "Blocked"),
+      foreign key (role_ID) REFERENCES role(id);
    );
    create table Themes (
       id int PRIMARY KEY AUTO_INCREMENT,
@@ -25,6 +28,11 @@ use DigitalGardenprojectOOP;
    createdDate date,
    associatedThemeId int,
    FOREIGN KEY (associatedThemeId) REFERENCES Themes(id)
+   );
+
+  create table role (
+       id int PRIMARY KEY AUTO_INCREMENT,
+       role_name varchar(10)
    );
 
 
