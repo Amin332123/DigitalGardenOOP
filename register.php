@@ -1,34 +1,35 @@
-<?php session_start(); 
-include("includes/header.php");
-require_once "./database/user.php";
-require_once "./Repository/userRepository.php";
+<?php 
+// session_start(); 
+// include("includes/header.php");
+// require_once "./database/user.php";
+// require_once "./Repository/userRepository.php";
 // session_start();
-if(isset($_POST["logIn"])){
-    $sql='SELECT name,userName,password FROM Users';
-    $username=$_POST["username"];
-    $name=$_POST["fullname"];
-    $password=$_POST["password"];
+// if(isset($_POST["logIn"])){
+//     $sql='SELECT name,userName,password FROM Users';
+//     $username=$_POST["username"];
+//     $name=$_POST["fullname"];
+//     $password=$_POST["password"];
     
-    $result=new dataconnect()->pdo->prepare($sql);
+//     $result=new dataconnect()->pdo->prepare($sql);
 
-  class logIn{
-    private $userRepository;
-    public function __construct(){
-      $this->userRepository=new UserRepository();
-    }
-        public function creatUser(){
-        $name=$this->$_POST["fullname"];
-       $username = $this->$_POST["username"];
-        $password = $this->$_POST["password"];
+//   class logIn{
+//     private $userRepository;
+//     public function __construct(){
+//       $this->userRepository=new UserRepository();
+//     }
+//         public function creatUser(){
+//         $name=$this->$_POST["fullname"];
+//        $username = $this->$_POST["username"];
+//         $password = $this->$_POST["password"];
         
-        $user  = new User($name,$username, $password);
-        return $this->$user->userRepository->create($user);
+//         $user  = new User($name,$username, $password);
+//         return $this->$user->userRepository->create($user);
     
-}
+// }
 
 
-  }
-}
+//   }
+// }
 
 ?>
 <link rel="stylesheet" href="public/public/style/style.css">

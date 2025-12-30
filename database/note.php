@@ -1,10 +1,10 @@
 <?php 
 class Note {
-            private $id;
-            private $title;
-            private $descreption;
-            private $createdDate;
-            private $associatedthemeID;
+        private $id;
+        private $title;
+        private $descreption;
+        private $createdDate;
+        private $associatedthemeID;
 
     public function __construct($title, $descreption, $createdDate, $themeID){
         $this->title  = $title;

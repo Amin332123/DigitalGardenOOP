@@ -7,14 +7,14 @@ class Theme {
     private $noteNumbers;
     private $userID;
 
-  public function __construct($name, $color, $notesNumber, $userid){
+  public function construct($name, $color, $notesNumber, $userid){
     $this->name  = $name;
     $this->Color = $color;
     $this->noteNumbers = $notesNumber;
     $this->userID = $userid;
   }
 
-  public function __setid($id){
+  public function setid($id){
     if(!is_numeric($id)||$id <=0 ){
         echo"this id :".$id."is not existe";
         exit();
@@ -25,5 +25,9 @@ class Theme {
   public function __get($property) {
     return $this->$property;
   }
+
+  // public function __get($property) {
+  //   return $this->$property;
+  // }
   
 }

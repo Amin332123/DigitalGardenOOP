@@ -17,5 +17,5 @@ class dataconnect{
         
     }
    }
+  
 }
-$conn = new dataconnect();
