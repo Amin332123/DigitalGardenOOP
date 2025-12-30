@@ -7,26 +7,28 @@ class User
     private $password;
     private $role;
     private $status;
-    
-     
-public function __construct($name,$username,$password)
+     const BLOCKED='Blocked';
+     const ACTIVE='Active';
+     const PENDING='Pending';
+public function __construct($name,$username,$password,$role,$status=self::PENDING)
     {
-        $this->id ;
-        $this->name;
-        $this->password;
-        $this->username;
+        $this->name=$name;
+        $this->password=$password;
+        $this->username=$username;
+        $this->role=$role;
+        $this->status=$status;
     }
-    public function __setid($id)
-    {
-        if(!is_numeric($id)|| $id<=0){
-            echo"that id :".$this->id."is not existe";
-            return;
-        }
-        return $this->id;
+  public function setid($id){
+    if(!is_numeric($id)||$id <=0 ){
+        echo"this id :".$id."is not existe";
+        exit();
     }
-    public function __get($property) {
+     $this->id = $id;
+  }
+  public function __get($property) {
         return $this->$property;
 
     }
-   
 }
+    
+   
