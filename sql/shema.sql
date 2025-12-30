@@ -30,10 +30,7 @@ use DigitalGardenprojectOOP;
    FOREIGN KEY (associatedThemeId) REFERENCES Themes(id)
    );
 
-   create table role (
-       id int PRIMARY KEY AUTO_INCREMENT,
-       role_name varchar(10)
-   );
+
 
 
 
