@@ -7,9 +7,9 @@ class User
     private $password;
     private $role;
     private $status;
-    public const BLOCKED='Blocked';
-    public const ACTIVE='Active';
-    public const PENDING='Pending';
+     const BLOCKED='Blocked';
+     const ACTIVE='Active';
+     const PENDING='Pending';
 public function __construct($name,$username,$password,$role,$status=self::PENDING)
     {
         $this->name=$name;
