@@ -25,4 +25,9 @@ class Theme {
   public function __get($property) {
     return $this->$property;
   }
+
+  // public function __get($property) {
+  //   return $this->$property;
+  // }
+  
 }
