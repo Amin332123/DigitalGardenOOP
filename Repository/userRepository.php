@@ -1,11 +1,13 @@
 <?php 
 include_once "../database/user.php";
+include_once "../database/dataconection.php";
 class UserRepository{
     private $id;
     private $pdo;
      public function creat($user){
         $sql='INSERT TABLE Users(name,userName,password,createdDate) VALUES(:name,:username,:password,NOW())';
-        $stmt=$this->pdo->prepare($sql);
+        $connet=new dataconnect();
+       $stmt= $connet->$this->pdo->prepare($sql);
        $result=$stmt->fetch(PDO::FETCH_OBJ);
        $user=[];
        foreach($result as $res){

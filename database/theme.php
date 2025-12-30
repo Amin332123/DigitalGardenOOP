@@ -1,20 +1,28 @@
 <?php
 
-class themes{
+class Theme {
     private $id;
     private $name;
     private $Color;
-  public function __construct(){
-    $this->id;
-    $this->name;
-    $this->Color;
+    private $noteNumbers;
+    private $userID;
+
+  public function construct($name, $color, $notesNumber, $userid){
+    $this->name  = $name;
+    $this->Color = $color;
+    $this->noteNumbers = $notesNumber;
+    $this->userID = $userid;
   }
 
-  public function __setid($id){
+  public function setid($id){
     if(!is_numeric($id)||$id <=0 ){
-        echo"this id :".$this->id."is not existe";
+        echo"this id :".$id."is not existe";
         exit();
     }
-    return $this->id;
+     $this->id = $id;
+  }
+
+  public function __get($property) {
+    return $this->$property;
   }
 }
