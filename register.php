@@ -31,12 +31,15 @@
 //   }
 // }
 
+
+
+
 ?>
 <link rel="stylesheet" href="public/public/style/style.css">
 
 <div class="form-container">
     <h2 class="login-title ">Inscription</h2>
-    <form action="config/database.php" method="POST" id="signupform">
+    <form action="./Repository/userRepository.php" method="POST" id="signupform">
         <div class="input-group">
             <input type="text" name="fullname" placeholder="Enter your Full Name" id="fullname" class="input-field" required>
         </div>
