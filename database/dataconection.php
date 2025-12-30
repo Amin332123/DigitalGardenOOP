@@ -1,6 +1,6 @@
 <?php
 class dataconnect{
-    private $db='';
+    private $db='DGSardenSSOOP';
     private $Username='root';
     private $password='';
     private $pdo;
@@ -8,7 +8,7 @@ class dataconnect{
    public function __construct(){
     try{
             $dsn ='mysql:host=' . $this->host . ';dbname=' . $this->db;
-
+           
             $this->pdo = new PDO($dsn, $this->Username, $this->password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             echo'kolchi mezyan';
@@ -18,3 +18,4 @@ class dataconnect{
     }
    }
 }
+$conn = new dataconnect();
