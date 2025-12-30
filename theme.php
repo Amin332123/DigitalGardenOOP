@@ -1,18 +1,20 @@
 <?php
 
-include("includes/headerregistred.php");
-include("config/database.php");
-if (!isset($_SESSION['id'])) {
-     header("Location: login.php");
-    exit;
-}
-$sqlUsers = "select Themes.id , themeName , Themes.notesNumber , Themes.bColor from Themes where userId =  '{$_SESSION['id']}' ";
-$result = $conn->query($sqlUsers);
-$themes = [];
-while ($row = $result->fetch_assoc()) {
-    $themes[] = $row;
-}
+include_once "./Repository/themeRepository.php";
+include_once "./database/theme.php";
+session_start();
+class serviceTheme{
+private $themeReositoy;
 
+    public function __construct(){
+        $this->themeReositoy=new ThemeRepository();
+    }
+    public function cratTheme(){
+        $theme = new Theme($_POST["themeName"],$_POST["maxNotes"],$_POST["backgroundColor"], 11);
+        $this->themeReositoy->creat($theme);
+    }
+   
+}
 
 
 ?>

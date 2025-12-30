@@ -17,5 +17,8 @@ class dataconnect{
         
     }
    }
-  
+   public function connection(){
+    return $this->pdo;
+   }
+   
 }

@@ -6,8 +6,8 @@ class Theme {
     private $Color;
     private $noteNumbers;
     private $userID;
-
-  public function construct($name, $color, $notesNumber, $userid){
+    // private $themes=[];
+  public function construct($name, $color, $notesNumber,$userid){
     $this->name  = $name;
     $this->Color = $color;
     $this->noteNumbers = $notesNumber;
@@ -29,5 +29,7 @@ class Theme {
   // public function __get($property) {
   //   return $this->$property;
   // }
+  // $notes=new notes()
   
 }
+  
