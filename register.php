@@ -1,6 +1,6 @@
 <?php 
 // session_start(); 
-// include("includes/header.php");
+include("includes/header.php");
 // require_once "./database/user.php";
 // require_once "./Repository/userRepository.php";
 // session_start();
@@ -39,7 +39,7 @@
 
 <div class="form-container">
     <h2 class="login-title ">Inscription</h2>
-    <form action="./Repository/userRepository.php" method="POST" id="signupform">
+    <form action="./Postmanger.php" method="POST" id="signupform">
         <div class="input-group">
             <input type="text" name="fullname" placeholder="Enter your Full Name" id="fullname" class="input-field" required>
         </div>

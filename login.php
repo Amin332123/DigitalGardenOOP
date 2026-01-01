@@ -7,7 +7,7 @@
 <div class="login-container">
   <h2 class="login-title">Login</h2>
 
-  <form id="loginform" action="config/database.php" method="POST" >
+  <form id="loginform" action="./Postmanger.php" method="POST" >
     <div class="input-group">
       <input type="text" name="username" placeholder="Username" class="input-field" id="checkUsername" required>
     </div>
