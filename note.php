@@ -1,7 +1,7 @@
 <?php
 // session_start();
-include("includes/headerregistred.php");
-include("config/database.php");
+// include("includes/headerregistred.php");
+// include("config/database.php");
 
 
 // if (!isset($_SESSION['id'])) {
@@ -15,7 +15,19 @@ include("config/database.php");
 // while ($row = $result->fetch_assoc()) {
 //   $Notes[] = $row;
 // }
-
+class serviceNote{
+  private $NoteRepository;
+  
+  public function __construct(){
+    $this->NoteRepository=new Noterepository();
+  }
+  public function creatNote(){
+    $title=$_POST["noteTitle"];
+    $content =$_POST["noteContent"];
+    $importance=$_POST["noteImportance"];
+    
+  }
+}
 
 
 

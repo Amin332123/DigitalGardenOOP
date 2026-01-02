@@ -1,23 +1,5 @@
-<?php
+<html>
 
-include_once "./Repository/themeRepository.php";
-include_once "./database/theme.php";
-session_start();
-class serviceTheme{
-private $themeReositoy;
-
-    public function __construct(){
-        $this->themeReositoy=new ThemeRepository();
-    }
-    public function cratTheme(){
-        $theme = new Theme($_POST["themeName"],$_POST["maxNotes"],$_POST["backgroundColor"], 11);
-        $this->themeReositoy->creat($theme);
-    }
-   
-}
-
-
-?>
 <link rel="stylesheet" href="public/public/style/theme.css">
 <link rel="stylesheet" href="public/public/style/style.css">
 <div class="create-btncontainer">
@@ -28,7 +10,7 @@ private $themeReositoy;
     <div class="modal-box">
         <h2 class="modal-title">Theme Settings</h2>
 
-        <form action="config/database.php" method="POST" id="themeForm">
+        <form action="servicetheme.php" method="POST" id="themeForm">
 
     <div class="modal-input-group">
         <label>Theme Name</label>
@@ -73,30 +55,28 @@ private $themeReositoy;
     </div>
 </div>
 <section class="themes-section" id="themesContainer">
-    <?php
-    foreach ($themes as $theme) {
-    ?>
+   
         <div class="themes-grid">
-            <div class="theme-card" style="background: <?= $theme['bColor'] ?>;">
-                <h2 class="themetitless"><span>Title </span> : <div class="themetitle" style="display: inline;"><?= $theme['themeName'] ?></div></h2>
-                <p class="theme-color" style="display: inline;">Theme Color : <div class="colortheme" style="display: inline;">  <?= $theme['bColor'] ?></div></p>
-                <p class="theme-notes">Max Notes: <div class="maxnotConatiner"><?= $theme['notesNumber'] ?></div></p>
+            <div class="theme-card" style="background: ;">
+                <h2 class="themetitless"><span>Title </span> : <div class="themetitle" style="display: inline;"></div></h2>
+                <p class="theme-color" style="display: inline;">Theme Color : <div class="colortheme" style="display: inline;"></div></p>
+                <p class="theme-notes">Max Notes: <div class="maxnotConatiner"></div></p>
 
                 <div class="theme-actions"  style="display: flex; gap:20px;">
                     <form action="config/database.php" method="POST">
-                     <input type="hidden" name="theme_id" value="<?= $theme['id']?>">
+                     <input type="hidden" name="theme_id" value="">
                         <button class="view-btn" type="submit" name="viewnote">View Notes</button>
                     </form>
                    <form action="config/database.php" method="POST">
                     <input class="modify-btn" type="submit" name="action"  value="modify"></input>
-                    <input type="hidden" name="theMeID" value="<?= $theme['id'] ?>">
+                    <input type="hidden" name="theMeID" value="">
                    </form>
-                    <a href="./config/database.php?delete=<?= $theme['id']?>"><button class="delete-btn">Delete</button></a>
+                    <a href="./config/database.php?delete="><button class="delete-btn">Delete</button></a>
                 </div>
             </div>
         </div> <?php
 
-            }
+            
                 ?>
 </section>
 <script src="public/public/js/theme.js">

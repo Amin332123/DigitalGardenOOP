@@ -1,22 +1,27 @@
 <?php
-include_once "../database/dataconection.php";
-class ThemeRepository{
-    private $id;
+require_once "/../database/dataconection.php";
+
+class ThemeRepository {
     private $pdo;
+    
     public function __construct(){
-        $this->pdo=new dataconnect()->connection();
+        $this->pdo = new dataconnect();
     }
-    public function creat($theme){
-        $sql='INSERT INTO Themes VALUES(:themename,:color,:notenumber,:userId)';
-        $stmt=$this->pdo->prepare($sql);
-        $stmt->bindParam(":themename",$theme->themename);
-        $stmt->bindParam(":color",$theme->color);
-        $stmt->bindParam(":notenumber",$theme->Notenumber);
-        $stmt->bindParam(":userId",$theme->userID);
+    
+    public function create($theme){
+        $sql = 'INSERT INTO themes (themeName, bColor, notesNumber, userId) 
+                VALUES(:themename, :color, :notesnumber, :userId)';
+        
+        $connection = $this->pdo->connection();
+        $stmt = $connection->prepare($sql);
+        
+        $stmt->bindParam(":themename", $theme->themename);
+        $stmt->bindParam(":color", $theme->color);
+        $stmt->bindParam(":notesnumber", $theme->notesnumber);
+        $stmt->bindParam(":userId", $theme->userId);
+        
         $stmt->execute();
-
-
-        
-        
+        return $theme;
     }
 }
+?>
