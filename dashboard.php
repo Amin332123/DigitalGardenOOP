@@ -1,5 +1,7 @@
 
-<?php include("includes/headerregistred.php") ;
+<?php include("includes/headerregistred.php");
+session_start();
+
 // if (empty($_SESSION['id'])) {
 //     header("Location: http://digitalgarden.test/login.php");
 // }
@@ -13,13 +15,9 @@
 <link rel="stylesheet" href="public/public/style/style.css">
 <section class="user-dashboard">
   <h1 class="user-name" id="userRegisteredName">Welcome, 
-  <?php  
+  <?=   
   
-  // if ($_SESSION['checker'] == false) {
-  //   echo " " .  $_SESSION['fullname'];
-  // } else {
-  //   echo " " . $_SESSION['userName'];
-  // }
+  $_SESSION["userName"]
   
   
    ?> 
@@ -27,9 +25,9 @@
 
   <p class="user-info">
     Account Created: <span id="createdDate">
-    <?php 
+    <?= 
 
-
+    $_SESSION["createdDate"]
 
     // if ($_SESSION['checker'] == false) {
     //     echo " " . $_SESSION['createDate'];

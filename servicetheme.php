@@ -11,17 +11,16 @@ class serviceTheme{
     }
     
     public function createTheme(){
-        if(isset($_POST["formType"])){
+        // if(empty($_SESSION['id'])){
+        //  header("location:login.php");
+        // }
+        // else{
+        if(isset($_POST["submiting"])){
+           
             $themename = $_POST["themeName"];
             $noteNumbers = $_POST["maxNotes"];
             $color = $_POST["backgroundColor"];
             $userID = $_SESSION['id'] ?? null;
-            
-            // Check if user is logged in
-            if(!$userID){
-                echo "Error: User not logged in!";
-                return;
-            }
             
             $thm = new Theme($themename, $color, $noteNumbers, $userID);
             
@@ -34,7 +33,8 @@ class serviceTheme{
             }
         }
     }
-}
+    }
+
 
 $obj = new serviceTheme();
 $obj->createTheme();

@@ -1,3 +1,9 @@
+<?php 
+include_once "./Repository/userRepository.php";
+$users = new UserRepository();
+$Users = $users->findAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,25 +142,32 @@
 <!-- Main Section -->
 <section class="page-section">
     <div class="card-list">
-
+     
+    <?php foreach ($Users as $user) { ?>
         <div class="card">
             <div class="card-content">
-                <h3>User Request #1</h3>
-                <p>This is a long card description or user information.</p>
+                <h3>Name : <?= $user->name; ?> </h3>
+                <h3>Username : <?=  $user->userName;  ?></h3>
+                <p>created Date : <?= $user->createdDate ?></p>
             </div>
 
             <div class="card-actions">
-                <form method="post">
+                <form method="post" action="./Postmanger.php">
+                    <input type="hidden" name="STATUS" value="blockUser">
                     <button class="btn btn-block" type="submit">Block</button>
                 </form>
 
-                <form method="post">
+                <form method="post" action="./Postmanger.php">
+                       <input type="hidden" name="STATUS" value="ValidateUser">
+                       <input type="hidden" name="id" value="<?= $user->id ?>">
+                       
                     <button class="btn btn-validate" type="submit">Validate</button>
                 </form>
             </div>
         </div>
+        <?php  }  ?>
 
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-content">
                 <h3>User Request #2</h3>
                 <p>Another card with actions on the right side.</p>
@@ -169,7 +182,7 @@
                     <button class="btn btn-validate" type="submit">Validate</button>
                 </form>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </section>

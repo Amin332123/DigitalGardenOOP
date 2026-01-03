@@ -1,6 +1,6 @@
 <?php
 class dataconnect{
-    private $db='digitalgardenprojectoop';
+    private $db='Digital_Garden_OOP';
     private $Username='root';
     private $password='';
     private $pdo;
@@ -14,8 +14,8 @@ class dataconnect{
             
         } catch (PDOException $e) {
             echo "failed" . $e->getMessage();
-        
     }
+    
    }
    public function connection(){
     return $this->pdo;

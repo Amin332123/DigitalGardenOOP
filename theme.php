@@ -1,3 +1,20 @@
+<?php
+require_once "./Repository/themeRepository.php";
+session_start();
+
+// Fixed: Check if user is logged in and get their themes
+// if(empty($_SESSION['id'])){
+//     header("location:login.php");
+//     exit();
+// }
+$userid=$_SESSION['id'];
+$themeRepo = new ThemeRepository();
+$themes = $themeRepo->findAll($userid);
+if(isset($_POST["submiting"])){
+      header("location: theme.php");
+}
+
+?>
 <html>
 
 <link rel="stylesheet" href="public/public/style/theme.css">
@@ -27,10 +44,6 @@
     <span>Background Color :</span>
     <input type="color" value="#09ff00" name="backgroundColor" id="bgColor">
 
-    <!-- REQUIRED FIX -->
-    <!-- <input type="hidden" name="themeId" id="themeId" value="?>"> -->
-
-    <!-- KEPT EXACTLY AS YOU NEED -->
     <input type="hidden" name="formType" value="newtheme">
 
     <div class="modal-actions">
@@ -50,37 +63,53 @@
          style="color:red;text-align:center;margin-top:5px;"></div>
 </form>
 
-
         <span class="close-modal" id="closeModal">✕</span>
     </div>
 </div>
+
 <section class="themes-section" id="themesContainer">
-   
+    <?php if(empty($themes)): ?>
+        <p>No themes found. Create your first theme!</p>
+    <?php else: ?>
         <div class="themes-grid">
-            <div class="theme-card" style="background: ;">
-                <h2 class="themetitless"><span>Title </span> : <div class="themetitle" style="display: inline;"></div></h2>
-                <p class="theme-color" style="display: inline;">Theme Color : <div class="colortheme" style="display: inline;"></div></p>
-                <p class="theme-notes">Max Notes: <div class="maxnotConatiner"></div></p>
+            <?php foreach ($themes as $theme): ?>
+                <div class="theme-card" style="background: <?= $theme['bColor'] ?>;">
+                    <h2 class="themetitless">
+                        <span>Title </span> : <?= $theme['themeName'] ?>
+                    </h2>
+                    <p class="theme-color">
+                        Theme Color: <?= $theme['bColor'] ?>
+                    </p>
+                    <p class="theme-notes">
+                        Max Notes: <?= $theme['notesNumber'] ?>
+                    </p>
 
-                <div class="theme-actions"  style="display: flex; gap:20px;">
-                    <form action="config/database.php" method="POST">
-                     <input type="hidden" name="theme_id" value="">
-                        <button class="view-btn" type="submit" name="viewnote">View Notes</button>
-                    </form>
-                   <form action="config/database.php" method="POST">
-                    <input class="modify-btn" type="submit" name="action"  value="modify"></input>
-                    <input type="hidden" name="theMeID" value="">
-                   </form>
-                    <a href="./config/database.php?delete="><button class="delete-btn">Delete</button></a>
+                    <div class="theme-actions" style="display: flex; gap:20px;">
+                        <form action="config/database.php" method="POST">
+                            <input type="hidden" name="theme_id" value="<?= $theme['id'] ?>">
+                            <button class="view-btn" type="submit" name="viewnote">View Notes</button>
+                        </form>
+                        
+                        <form action="config/database.php" method="POST">
+                            <input class="modify-btn" type="submit" name="action" value="modify">
+                            <input type="hidden" name="theMeID" value="<?= $theme['id'] ?>">
+                        </form>
+                        
+                            <button class="delete-btn" name="deletetheme" value="<?= $theme['id'] ?>">Delete</button>
+                           <? if(isset($_POST["deletetheme"])){
+                            $themeRepo->delete($theme['id']);
+                             header("location: theme.php");
+                             }
+                             ?>
+
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div> <?php
-
-            
-                ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </section>
-<script src="public/public/js/theme.js">
-</script>
-</body>
 
+<script src="public/public/js/theme.js"></script>
+</body>
 </html>
