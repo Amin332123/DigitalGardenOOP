@@ -1,16 +1,19 @@
 <?php
 require_once __DIR__ . "/../database/dataconection.php";
+require_once __DIR__ ."/../Repository/userRepository.php";
 require_once __DIR__ . "/../database/theme.php";
 
 class ThemeRepository {
     private $pdo;
+    // private $userId;
     
     public function __construct(){
         $this->pdo = new dataconnect();
+        // $this->userId=new UserRepository()->findById($id);
     }
    
     public function create($theme){
-        $sql = 'INSERT INTO themes (themeName, bColor, notesNumber, userId) 
+        $sql = 'INSERT INTO themes (themeName,bColor,notesNumber,userId) 
                 VALUES(:themename, :color, :notesnumber, :userId)';
         
         $connection = $this->pdo->connection();
@@ -40,7 +43,7 @@ class ThemeRepository {
     
     public function findAll($userId)
     {
-        $query = "SELECT * FROM themes WHERE userId = :userId";
+        $query = "SELECT * FROM themes WHERE userId = :userId ORDER BY id DESC";
         $connection = $this->pdo->connection();
         $stmt = $connection->prepare($query);
         $stmt->bindParam(":userId", $userId);
