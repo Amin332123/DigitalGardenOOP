@@ -3,9 +3,9 @@ require_once __DIR__ . "/../database/dataconection.php";
 require_once __DIR__ ."/../Repository/userRepository.php";
 require_once __DIR__ . "/../database/theme.php";
 
-class ThemeRepository {
+class ThemeRepository
+{
     private $pdo;
-    // private $userId;
     
     public function __construct(){
         $this->pdo = new dataconnect();
@@ -13,21 +13,26 @@ class ThemeRepository {
     }
    
     public function create($theme){
-        $sql = 'INSERT INTO themes (themeName,bColor,notesNumber,userId) 
+        $sql = 'INSERT INTO themes (themeName, bColor, notesNumber, userId) 
                 VALUES(:themename, :color, :notesnumber, :userId)';
-        
+
         $connection = $this->pdo->connection();
         $stmt = $connection->prepare($sql);
-        
-        $stmt->bindParam(":themename", $theme->themename);
-        $stmt->bindParam(":color", $theme->color);
-        $stmt->bindParam(":notesnumber", $theme->notesnumber);
-        $stmt->bindParam(":userId", $theme->userId);
-        
-        $stmt->execute();
+
+        // $stmt->bindParam(":themename", $theme->themename);
+        // $stmt->bindParam(":color", $theme->color);
+        // $stmt->bindParam(":notesnumber", $theme->notesnumber);
+        // $stmt->bindParam(":userId", $theme->userId);
+        $stmt->execute([
+            ":themename" => $theme->themename,
+            ":color" => $theme->color,
+            ":notesnumber" => $theme->notesnumber,
+            ":userId" => $theme->userId
+        ]);
+        // $stmt->execute();
         return $theme;
     }
-    
+
 
     // public function findAll($userId)
     // {
@@ -40,7 +45,7 @@ class ThemeRepository {
 
     //     return $result; 
     // }
-    
+
     public function findAll($userId)
     {
         $query = "SELECT * FROM themes WHERE userId = :userId ORDER BY id DESC";
@@ -59,13 +64,12 @@ class ThemeRepository {
 
         return $themes;
     }
-    public function delete($id){
-        $query="DELETE from themes where id = :id";
+    public function delete($id)
+    {
+        $query = "DELETE from themes where id = :id";
         $connection = $this->pdo->connection();
-        $stmt=$connection->prepare($query);
-        $stmt->bindParam(":id",$id);
+        $stmt = $connection->prepare($query);
+        $stmt->bindParam(":id", $id);
         $stmt->execute();
-
     }
 }
-?>

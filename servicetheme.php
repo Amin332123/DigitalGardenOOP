@@ -15,12 +15,12 @@ class serviceTheme{
         //  header("location:login.php");
         // }
         // else{
-        if(isset($_POST["submiting"])){
+        if(isset($_POST["formType"])){
            
             $themename = $_POST["themeName"];
             $noteNumbers = $_POST["maxNotes"];
             $color = $_POST["backgroundColor"];
-            $userID = $_SESSION['id'] ?? null;
+            $userID = $_SESSION['userId'];
             
             $thm = new Theme($themename, $color, $noteNumbers, $userID);
             
@@ -31,11 +31,18 @@ class serviceTheme{
                 echo "Theme created successfully!";
                 
             }
+            return;
         }
+       
+
     }
     }
 
 
+   
 $obj = new serviceTheme();
 $obj->createTheme();
+header("location: ./theme.php");
+
+
 ?>

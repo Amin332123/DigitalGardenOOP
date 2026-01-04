@@ -2,27 +2,18 @@
 require_once "./Repository/themeRepository.php";
 session_start();
 
-$userid = $_SESSION['id'] ?? null;
-
-// if(empty($userid)){
-//     header("location: login.php");
+// Fixed: Check if user is logged in and get their themes
+// if(empty($_SESSION['id'])){
+//     header("location:login.php");
 //     exit();
 // }
-if(isset($_POST["deletetheme"]) && !empty($_POST["theme_id"])){
-    $themeRepo = new ThemeRepository();
-    $themeRepo->delete($_POST["theme_id"]);
-    header("location: theme.php");
-    exit();
-}
-
-
-if(isset($_POST["submiting"])){
-    header("location: theme.php");
-    exit();
-}
-
+$userid=$_SESSION['id'];
 $themeRepo = new ThemeRepository();
 $themes = $themeRepo->findAll($userid);
+if(isset($_POST["submiting"])){
+      header("location: theme.php");
+}
+
 ?>
 <html>
 
@@ -37,11 +28,12 @@ $themes = $themeRepo->findAll($userid);
         <h2 class="modal-title">Theme Settings</h2>
 
         <form action="servicetheme.php" method="POST" id="themeForm">
-            <div class="modal-input-group">
-                <label>Theme Name</label>
-                <input type="text" placeholder="Enter theme name"
-                       name="themeName" class="modal-input" id="themename">
-            </div>
+
+    <div class="modal-input-group">
+        <label>Theme Name</label>
+        <input type="text" placeholder="Enter theme name"
+               name="themeName" class="modal-input" id="themename">
+    </div>
 
             <div class="input-group">
                 <label for="maxNotes">Max Notes</label>
@@ -75,19 +67,19 @@ $themes = $themeRepo->findAll($userid);
 
 <section class="themes-section" id="themesContainer">
     <?php if(empty($themes)): ?>
-        <p>No themes found. Create your first theme!</p>
+        <p style="color : green; text-align: center;">No themes found. Create your first theme!</p>
     <?php else: ?>
         <div class="themes-grid">
             <?php foreach ($themes as $theme): ?>
-                <div class="theme-card" style="background: <?= htmlspecialchars($theme->color) ?>;">
+                <div class="theme-card" style="background: <?= $theme['bColor'] ?>;">
                     <h2 class="themetitless">
-                        <span>Title </span> : <?= htmlspecialchars($theme->themename) ?>
+                        <span>Title </span> : <?= $theme['themeName'] ?>
                     </h2>
                     <p class="theme-color">
-                        Theme Color: <?= htmlspecialchars($theme->color) ?>
+                        Theme Color: <?= $theme['bColor'] ?>
                     </p>
                     <p class="theme-notes">
-                        Max Notes: <?= htmlspecialchars($theme->notesnumber) ?>
+                        Max Notes: <?= $theme['notesNumber'] ?>
                     </p>
 
                     <div class="theme-actions" style="display: flex; gap:20px;">
@@ -101,17 +93,26 @@ $themes = $themeRepo->findAll($userid);
                             <input type="hidden" name="theMeID" value="<?= $theme->id ?>">
                         </form>
                         
-                        <form action="theme.php" method="POST" style="display:inline;">
-                            <input type="hidden" name="theme_id" value="<?= $theme->id ?>">
-                            <button class="delete-btn" type="submit" name="deletetheme" value="1">Delete</button>
-                        </form>
+                            <button class="delete-btn" name="deletetheme" value="<?= $theme['id'] ?>">Delete</button>
+                           <? if(isset($_POST["deletetheme"])){
+                            $themeRepo->delete($theme['id']);
+                             header("location: theme.php");
+                             }
+                             ?>
+
+                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
 </section>
-
+<!-- 
+ if(isset($_POST["deletetheme"])){
+                            $themeRepo->delete($theme['id']);
+                             header("location: theme.php");
+                             } -->
+                      
 <script src="public/public/js/theme.js"></script>
 </body>
 </html>

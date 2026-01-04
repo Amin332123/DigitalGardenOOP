@@ -7,9 +7,9 @@ if (isset($_POST["formType"]) && $_POST["formType"] == "signup") {
 
     $UserRepo = new UserRepository();
     $UserRepo->register($user);
-    $_SESSION["userName"] = $user->name;
-    $_SESSION["createdDate"] = $user->createdDate;
-    header("location: dashboard.php");
+    // $_SESSION["userName"] = $user->name;
+    // $_SESSION["createdDate"] = $user->createdDate;
+    header("location: pendingpage.php");
 }
 
 if (isset($_POST["formType"]) && $_POST["formType"] == "login") {
