@@ -1,4 +1,6 @@
 <?php
+require_once "./Repository/themeRepository.php";
+session_start();
 
 include("includes/headerregistred.php");
 include("config/database.php");
@@ -6,16 +8,18 @@ include("config/database.php");
 //      header("Location: login.php");
 //     exit;
 // }
-$sqlUsers = "select Themes.id , themeName , Themes.notesNumber , Themes.bColor from Themes where userId =  '{$_SESSION['id']}' ";
-$result = $conn->query($sqlUsers);
-$themes = [];
-while ($row = $result->fetch_assoc()) {
-    $themes[] = $row;
-}
-
-
+// $sqlUsers = "select Themes.id , themeName , Themes.notesNumber , Themes.bColor from Themes where userId =  '{$_SESSION['userId']}' ";
+// $result = $conn->query($sqlUsers);
+// $themes = [];
+// while ($row = $result->fetch_assoc()) {
+//     $themes[] = $row;
+// }
+$obj = new ThemeRepository();
+$themes = $obj->findAll($_SESSION["userId"]);
 
 ?>
+<html>
+
 <link rel="stylesheet" href="public/public/style/theme.css">
 <link rel="stylesheet" href="public/public/style/style.css">
 <div class="create-btncontainer">
@@ -26,7 +30,7 @@ while ($row = $result->fetch_assoc()) {
     <div class="modal-box">
         <h2 class="modal-title">Theme Settings</h2>
 
-        <form action="config/database.php" method="POST" id="themeForm">
+        <form action="./servicetheme.php" method="POST" id="themeForm">
 
     <div class="modal-input-group">
         <label>Theme Name</label>
@@ -43,10 +47,6 @@ while ($row = $result->fetch_assoc()) {
     <span>Background Color :</span>
     <input type="color" value="#09ff00" name="backgroundColor" id="bgColor">
 
-    <!-- REQUIRED FIX -->
-    <!-- <input type="hidden" name="themeId" id="themeId" value="?>"> -->
-
-    <!-- KEPT EXACTLY AS YOU NEED -->
     <input type="hidden" name="formType" value="newtheme">
 
     <div class="modal-actions">
@@ -66,39 +66,54 @@ while ($row = $result->fetch_assoc()) {
          style="color:red;text-align:center;margin-top:5px;"></div>
 </form>
 
-
         <span class="close-modal" id="closeModal">✕</span>
     </div>
 </div>
+
 <section class="themes-section" id="themesContainer">
-    <?php
-    foreach ($themes as $theme) {
-    ?>
+    <?php if(empty($themes)): ?>
+        <p style="color : green; text-align: center;">No themes found. Create your first theme!</p>
+    <?php else: ?>
         <div class="themes-grid">
-            <div class="theme-card" style="background: <?= $theme['bColor'] ?>;">
-                <h2 class="themetitless"><span>Title </span> : <div class="themetitle" style="display: inline;"><?= $theme['themeName'] ?></div></h2>
-                <p class="theme-color" style="display: inline;">Theme Color : <div class="colortheme" style="display: inline;">  <?= $theme['bColor'] ?></div></p>
-                <p class="theme-notes">Max Notes: <div class="maxnotConatiner"><?= $theme['notesNumber'] ?></div></p>
+            <?php foreach ($themes as $theme): ?>
+                <div class="theme-card" style="background: <?= $theme->color ?>;">
+                    <h2 class="themetitless">
+                        <span>Title </span> : <?= $theme->themename ?>
+                    </h2>
+                    <p class="theme-color">
+                        Theme Color: <?= $theme->color ?>
+                    </p>
+                    <p class="theme-notes">
+                        Max Notes: <?= $theme->notesnumber ?>
+                    </p>
 
-                <div class="theme-actions"  style="display: flex; gap:20px;">
-                    <form action="config/database.php" method="POST">
-                     <input type="hidden" name="theme_id" value="<?= $theme['id']?>">
-                        <button class="view-btn" type="submit" name="viewnote">View Notes</button>
-                    </form>
-                   <form action="config/database.php" method="POST">
-                    <input class="modify-btn" type="submit" name="action"  value="modify"></input>
-                    <input type="hidden" name="theMeID" value="<?= $theme['id'] ?>">
-                   </form>
-                    <a href="./config/database.php?delete=<?= $theme['id']?>"><button class="delete-btn">Delete</button></a>
+                    <div class="theme-actions" style="display: flex; gap:20px;">
+                        <form action="config/database.php" method="POST">
+                            <input type="hidden" name="theme_id" value="<?= $theme->id ?>">
+                            <button class="view-btn" type="submit" name="viewnote">View Notes</button>
+                        </form>
+                        
+                        <form action="config/database.php" method="POST">
+                            <input class="modify-btn" type="submit" name="action" value="modify">
+                            <input type="hidden" name="theMeID" value="<?= $theme->id ?>">
+                        </form>
+                        
+                            <button class="delete-btn" name="deletetheme" value="<?= $theme->id ?>">Delete</button>
+                          
+
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div> <?php
-
-            }
-                ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </section>
-<script src="public/public/js/theme.js">
-</script>
+<!-- 
+ if(isset($_POST["deletetheme"])){
+                            $themeRepo->delete($theme['id']);
+                             header("location: theme.php");
+                             } -->
+                      
+<script src="public/public/js/theme.js"></script>
 </body>
-
 </html>

@@ -12,7 +12,7 @@ class UserRepository
   }
   public function register($user)
   {
-    
+
     $sql = 'INSERT INTO  Users (name,	userName,	passsword	,createdDate,	role_ID	,status) VALUES(? , ? , ? , ? , ? , ? )';
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute([
@@ -23,7 +23,10 @@ class UserRepository
       $user->role,
       $user->status
     ]);
+    // $_SESSION["userName"] = $user->userName;
   }
+
+
   public function login(User $user): bool
   {
 
@@ -47,12 +50,14 @@ class UserRepository
       $user->setCreatedDate($row['createdDate']);
       $user->setRoleID($row['role_ID']);
       $user->setStatus($row['status']);
-
+      $_SESSION["userName"] = $row['userName'];
+      $_SESSION["userId"] = $row["id"];
+      $_SESSION["createdDate"] = $row['createdDate'];
+ 
       if ($user->status == "Pending") {
         header("Location: pendingpage.php");
       } else {
-          header("Location: dashboard.php");
-      
+        header("Location: dashboard.php");
       }
     }
 
@@ -101,13 +106,14 @@ class UserRepository
     return $userobj;
   }
 
-  public function updateStatus($id, $statuuus) {
-   $query = 
-   "UPDATE users 
+  public function updateStatus($id, $statuuus)
+  {
+    $query =
+      "UPDATE users 
    SET status = '$statuuus'
    where id = $id;";
-   $stmt = $this->pdo->prepare($query);
-   $stmt->execute();
-   header("Location: adminpage.php");
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute();
+    header("Location: adminpage.php");
   }
 }

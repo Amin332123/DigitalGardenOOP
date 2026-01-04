@@ -1,5 +1,5 @@
-create DATABASE DigitalGardenprojectOOP;
-use DigitalGardenprojectOOP;
+create DATABASE Digital_Garden_OOP;
+use Digital_Garden_OOP;
    create table Users (
       id int PRIMARY KEY AUTO_INCREMENT,
       name varchar(30),

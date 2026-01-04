@@ -1,33 +1,30 @@
 <?php
 
-class Theme {
+class Theme{
     private $id;
-    private $name;
-    private $Color;
-    private $noteNumbers;
-    private $userID;
-
-  public function construct($name, $color, $notesNumber, $userid){
-    $this->name  = $name;
-    $this->Color = $color;
-    $this->noteNumbers = $notesNumber;
-    $this->userID = $userid;
-  }
-
-  public function setid($id){
-    if(!is_numeric($id)||$id <=0 ){
-        echo"this id :".$id."is not existe";
-        exit();
+    private $themename;
+    private $color;
+    private $notesnumber;
+    private $userId;
+    
+    public function __construct($name, $color, $notesNumber, $userid){
+        $this->themename = $name;
+        $this->color = $color;
+        $this->notesnumber = $notesNumber;
+        $this->userId = $userid;
     }
-     $this->id = $id;
-  }
 
-  public function __get($property) {
-    return $this->$property;
-  }
+    public function setid($id){
+        if(!is_numeric($id) || $id <= 0){
+            echo "This id: " . $id . " does not exist";
+            exit();
+        }
+        $this->id = $id;
+    }
 
-  // public function __get($property) {
-  //   return $this->$property;
-  // }
-  
+    public function __get($property) {
+            return $this->$property;
+       
+    }
 }
+?>

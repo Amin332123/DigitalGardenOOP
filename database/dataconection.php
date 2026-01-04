@@ -1,5 +1,5 @@
 <?php
-class   dataconnect{
+class dataconnect{
     private $db='dgsardenssoop';
     private $Username='root';
     private $password='';
@@ -11,7 +11,7 @@ class   dataconnect{
            
             $this->pdo = new PDO($dsn, $this->Username, $this->password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo'kolchi mezyan';
+            
         } catch (PDOException $e) {
             echo "failed" . $e->getMessage();
     }
@@ -20,6 +20,5 @@ class   dataconnect{
    public function connection(){
     return $this->pdo;
    }
-
-  
+   
 }
