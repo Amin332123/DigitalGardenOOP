@@ -15,6 +15,9 @@
 // while ($row = $result->fetch_assoc()) {
 //   $Notes[] = $row;
 // }
+include_once __DIR__."./database/note.php";
+include_once __DIR__."./Repository/noteRepository.php";
+
 class serviceNote{
   private $NoteRepository;
   
@@ -25,6 +28,7 @@ class serviceNote{
     $title=$_POST["noteTitle"];
     $content =$_POST["noteContent"];
     $importance=$_POST["noteImportance"];
+    $note=new Note($title,$content);
     
   }
 }

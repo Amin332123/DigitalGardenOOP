@@ -1,6 +1,6 @@
 <?php
 class dataconnect{
-    private $db='dgsardenssoop';
+    private $db='digital_garden_oop';
     private $Username='root';
     private $password='';
     private $pdo;

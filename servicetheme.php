@@ -1,7 +1,9 @@
 <?php
-include_once "./Repository/themeRepository.php";
-include_once "./database/theme.php";
+// Start session FIRST before any includes
 session_start();
+
+require_once "./Repository/themeRepository.php";
+require_once "./database/theme.php";
 
 class serviceTheme{
     private $themeRepository;
@@ -11,38 +13,66 @@ class serviceTheme{
     }
     
     public function createTheme(){
-        // if(empty($_SESSION['id'])){
-        //  header("location:login.php");
-        // }
-        // else{
+        
         if(isset($_POST["formType"])){
-           
-            $themename = $_POST["themeName"];
-            $noteNumbers = $_POST["maxNotes"];
-            $color = $_POST["backgroundColor"];
-            $userID = $_SESSION['userId'];
-            
-            $thm = new Theme($themename, $color, $noteNumbers, $userID);
             
             
-            $result = $this->themeRepository->create($thm);
-            
-            if($result){
-                echo "Theme created successfully!";
-                
+            if(empty($_POST["themeName"]) || empty($_POST["maxNotes"]) || empty($_POST["backgroundColor"])){
+                die("Error: All fields are required");
             }
-            return;
+            
+            
+            // if(empty($_SESSION['id'])){
+            //     die("Error: User not logged in");
+            // }
+            
+            try {
+                $themename = trim($_POST["themeName"]);
+                $noteNumbers = intval($_POST["maxNotes"]);
+                $color = $_POST["backgroundColor"];
+                $userID = $_SESSION['id'];
+                
+                
+                $thm = new Theme($themename, $color, $noteNumbers, $userID);
+                
+                $result = $this->themeRepository->create($thm);
+                
+                if($result){
+                    header("Location: theme.php");
+                    exit();
+                } else {
+                    die("Error: Failed to create theme");
+                }
+                
+            } catch(Exception $e){
+                die("Error: " . $e->getMessage());
+            }
+        } else {
+            header("Location: theme.php");
+            exit();
         }
-       
-
     }
+    
+    public function deleteTheme(){
+        if(isset($_POST["deletetheme"])){
+            try {
+                $themeId = $_POST["theme_id"];
+                $this->themeRepository->delete($themeId);
+                header("Location: theme.php");
+                exit();
+            } catch(Exception $e){
+                die("Error deleting theme: " . $e->getMessage());
+            }
+        }
     }
+}
 
-
-   
 $obj = new serviceTheme();
-$obj->createTheme();
-header("location: ./theme.php");
 
 
+if(isset($_POST["deletetheme"])){
+    $obj->deleteTheme();
+} else {
+    $obj->createTheme();
+}
 ?>

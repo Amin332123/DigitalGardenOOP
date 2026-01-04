@@ -4,6 +4,11 @@
 //      header("Location: login.php");
 //     exit;
 // } -->
+<?php
+if(isset($_POSt['actionformodification'])){
+    header("location : theme.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,7 +142,7 @@
 
         <h2 class="title-green">Theme Settings</h2>
 
-        <form action="config/database.php" method="POST" id="themeForm">
+        <form action="theme.php" method="POST" id="themeForm">
 
             <div class="group-dark">
                 <label>Theme Name</label>
