@@ -2,10 +2,10 @@
 
 include("includes/headerregistred.php");
 include("config/database.php");
-if (!isset($_SESSION['id'])) {
-     header("Location: login.php");
-    exit;
-}
+// if (!isset($_SESSION['id'])) {
+//      header("Location: login.php");
+//     exit;
+// }
 $sqlUsers = "select Themes.id , themeName , Themes.notesNumber , Themes.bColor from Themes where userId =  '{$_SESSION['id']}' ";
 $result = $conn->query($sqlUsers);
 $themes = [];

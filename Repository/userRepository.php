@@ -12,7 +12,7 @@ class UserRepository
   }
   public function register($user)
   {
-
+    
     $sql = 'INSERT INTO  Users (name,	userName,	passsword	,createdDate,	role_ID	,status) VALUES(? , ? , ? , ? , ? , ? )';
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute([
@@ -57,11 +57,6 @@ class UserRepository
     }
 
 
-
-
-
-
-
     return true;
   }
 
@@ -79,7 +74,6 @@ class UserRepository
       $userobj->setID($user->id);
       $UsersObj[] = $userobj;
     }
-
     return $UsersObj;
   }
 
