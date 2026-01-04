@@ -37,7 +37,7 @@ class ThemeRepository {
             $stmt->execute();
             
           
-            $theme->setId($connection->lastInsertId());
+          
             
             return $theme;
             

@@ -7,53 +7,54 @@ class Noterepository{
         $this->pdo=new dataconnect()->connection();
     }
      
-    public function creat($note){
-        $sql='INSERT INTO Notes(title,importance,createdDate)VALUES(:title,:importance,:creatdate,:themeid)';
-        $stmt=$this->pdo->prepare($sql);
-        $stmt->bindParam(":title",$note->title);
-        $stmt->bindParam(":importance",$note->importance);
-        $stmt->bindParam(":title",$note->creatdate);
-        $stmt->bindParam(":theme",$themeid);
-        $stmt->execute();
-    }
+   
     
       public function create($note){
         try {
      
-     $sql='INSERT INTO Notes(title,importance,createdDate)VALUES(:title,:importance,:creatdate,:themeid)';
-;
-            
-            $connection = $this->pdo->connection();
-            
-            if(!$connection){
-             echo "Database connection failed";
-            }
+        $sql='INSERT INTO Notes(title,importance,createdDate)VALUES(:title,:importance,:creatdate,:themeid)';
             
             $stmt=$this->pdo->prepare($sql);            
-          
-            $themename = $theme->themename;
-            $color = $theme->color;
-            $notesnumber = $theme->notesnumber;
-            $userId = $theme->userId;
+           $noteTitle = $note->title;
+            $importance = $note->importance;
+            $createDate = $note->creatdate;
+            $themeId = $note->themeid;
+           
             
-            $stmt->bindParam(":themename", $themename, PDO::PARAM_STR);
-            $stmt->bindParam(":color", $color, PDO::PARAM_STR);
-            $stmt->bindParam(":notesnumber", $notesnumber, PDO::PARAM_INT);
-            $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
-            
-       
-            $success = $stmt->execute();
-            
-            if($success){
-                $theme->setId($connection->lastInsertId());
-                return $theme;
-            }
-            
-            return false;
-            
+        $stmt->bindParam(":title",$noteTitle);
+        $stmt->bindParam(":importance",$importance);
+        $stmt->bindParam(":title",$createDate);
+        $stmt->bindParam(":theme",$ $themeId);
+        $stmt->execute();
+                        
         } catch(PDOException $e) {
             echo "Theme creation error: " . $e->getMessage();
           
+        }
+    }
+
+        public function findAll($themeId)
+    {
+        try {
+            $query = "SELECT * FROM themes WHERE associatedThemeId = :ThemeId ORDER BY id DESC";
+     
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindParam(":ThemeId", $themeId);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            $Notes = [];
+            foreach ($result as $obj) {
+                $nt = new Note($obj->title, $obj->description, $obj->creatdate, $obj->themeId);
+                $nt->setId($obj->id);
+                array_push($Notes, $nt);
+            }
+
+            return $Notes;
+
+        } catch(PDOException $e) {
+            echo "Theme fetch error: " . $e->getMessage();
+            return [];
         }
     }
 }

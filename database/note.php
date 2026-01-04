@@ -13,7 +13,7 @@ class Note {
         $this->associatedthemeID = $themeID;
     }
 
-    public function __setid($id){
+    public function setid($id){
         if(!is_numeric($id)||$id <=0 ){
             echo"this id :".$id."is not existe";
             exit();
