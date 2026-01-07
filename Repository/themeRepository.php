@@ -144,4 +144,22 @@ class ThemeRepository {
          return false;
     }
 }
+
+ public function favorite($favorite){
+        try{
+            $qurey="INSERT INTO favorite(userID,themeID) VALUES(:userID,:themeID);";
+            $connection = $this->pdo->connection();
+            $stmt=$connection->prepare($qurey);
+            $stmt->bindParam(":userID",$favorite->userID);
+            $stmt->bindParam(":themeID",$favorite->themeID);
+            return $stmt->execute();
+
+
+        }
+        catch(PDOException $e){
+            echo "Faile to add as a favorite".$e->getMessage();
+            return false;
+        }
+
+    }
 }

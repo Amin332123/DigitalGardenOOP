@@ -7,6 +7,7 @@ use Digital_Garden_OOP;
       passsword varchar(40),
       createdDate date
    );
+
    create table Themes (
       id int PRIMARY KEY AUTO_INCREMENT,
       themeName varchar(40), 
@@ -28,8 +29,16 @@ use Digital_Garden_OOP;
        id int PRIMARY KEY AUTO_INCREMENT,
        role_name varchar(10)
    );
+   CREATE TABLE favorite (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      userID int,
+      themeID int,
+      Foreign Key (userID) REFERENCES Users(id),
+      Foreign Key (themeID) REFERENCES Themes(id)
+   );
 
-ALTER Table Notes ADD COLUMN description VARCHAR(120);
-SELECT * FROM Notes;
+ALTER table 
+Themes ADD COLUMN statu ENUM("private","public");
 
 
+SELECT * FROM Themes;

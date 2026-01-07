@@ -30,6 +30,53 @@ $themes = $themeRepo->findAll($userid);
 
 <body>
 
+<!-- style -->
+ <style>
+        .favorite-checkbox {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
+
+        .favorite-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .favorite-checkbox label {
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .favorite-checkbox label:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .favorite-checkbox input[type="checkbox"]:checked + label {
+            color: #ffd700;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+        }
+
+        .theme-card {
+            position: relative;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+
+<!-- end style -->
+
 
     <div class="create-btncontainer">
         <button class="create-theme-btn" id="createTheme">Create New Theme</button>
@@ -56,7 +103,7 @@ $themes = $themeRepo->findAll($userid);
                     <label>Background Color:</label>
                     <input type="color" value="#09ff00" name="backgroundColor" id="bgColor">
                 </div>
-
+                    
                 <input type="hidden" name="formType" value="newtheme">
 
                 <div class="modal-actions">
@@ -80,6 +127,17 @@ $themes = $themeRepo->findAll($userid);
             <div class="themes-grid">
                 <?php foreach ($themes as $theme): ?>
                     <div class="theme-card" style="background: <?= $theme->color ?>;">
+
+                    <!-- the star -->
+                        <div class="favorite-checkbox">
+                            <form action="./servicetheme.php" method="POST">
+                            <input type="hidden" name="favoritID" value="<?= $theme->id ?>">
+                            <input type="hidden" name="UserId" value="<?= $theme->userId ?>">
+                            <input type="checkbox" id="favorite-<?= $theme->id ?>" name="favorite" value="<?= $theme->id ?>">
+                            <label for="favorite-<?= $theme->id ?>">★</label>
+                            </form>
+                        </div>
+                        <!-- end star -->
                         <h2 class="themetitless">
                             <span>Title:</span> <?= $theme->themename ?>
                         </h2>
