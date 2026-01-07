@@ -1,11 +1,10 @@
 
-<?php session_start();
-if (!isset($_SESSION['id'])) {
-     header("Location: ../login.php");
-    exit;
-}
-
+<?php
+session_start();
+$NoteID=$_SESSION['NoteID'];
+// unset($_SESSION['NoteID']); 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,7 +155,6 @@ if (!isset($_SESSION['id'])) {
 
 </style>
 </head>
-<!-- $_SESSION["notetitle"] $_SESSION["noteContent"] $_SESSION["importance"]  -->
 <body>
 
 <div class="note-modal" id="notemodal">
@@ -164,23 +162,23 @@ if (!isset($_SESSION['id'])) {
   
     <h2 id="notemodaltitle"> Note</h2>
 
-    <form action="config/database.php" id="NoteForm" method="POST">
+    <form action="./servicenote.php" id="NoteForm" method="POST">
       <label>Title</label>
-      <input type="text" placeholder="Enter note title" id="noteTitle" name="noteTitle" value="<?= $_SESSION["notetitle"] ?>">
+      <input type="text" placeholder="Enter note title" id="noteTitle" name="newTitle" value="">
 
       <label>Importance (Stars)</label>
-      <input type="number" min="0" max="5"  name="noteImportance" value="   ">
+      <input type="number" min="0" max="5"  name="newImportance" value="   ">
 
       <label>Content</label>
-      <textarea class="note-textarea" maxlength="600"  name="noteContent">
-      <!-- //  $_SESSION["noteContent"] -->
+      <textarea class="note-textarea" maxlength="600"  name="newContent">
+     
       </textarea>
       <small class="word-counter">0 / 100 words</small>
        <input type="hidden" name="modifing" value="modifidnote">
-       <input type="hidden" name="noteidd" value="   ">
     
-      <div class="btns">
-        <button type="submit" class="create-btn">update</button>
+      <div class="btns">  
+        <input type="hidden" name="noteId" value="<?=$NoteID?> ">
+        <button type="submit" name="update" class="create-btn">update</button>
       </div>
     </form>
 

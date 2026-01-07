@@ -29,5 +29,7 @@ use Digital_Garden_OOP;
        role_name varchar(10)
    );
 
+ALTER Table Notes ADD COLUMN description VARCHAR(120);
+SELECT * FROM Notes;
 
 

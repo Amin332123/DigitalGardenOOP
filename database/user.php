@@ -23,7 +23,7 @@ class User
     public function __setid($id)
     {
         if (!is_numeric($id) || $id <= 0) {
-            echo "that id :" . $this->id . "is not existe";
+            
             return;
         }
         return $this->id;

@@ -1,16 +1,13 @@
-<!-- < -->
-<!-- // session_start(); 
-// if (!isset($_SESSION['id'])) {
-//      header("Location: login.php");
-//     exit;
-// } -->
-<?php
-if(isset($_POSt['actionformodification'])){
-    header("location : theme.php");
-}
+<?php 
+session_start(); 
+$themeID=$_SESSION['themeID'];
+unset($_SESSION['themeID']); 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +38,7 @@ if(isset($_POSt['actionformodification'])){
             padding: 20px;
             border-radius: 10px;
             position: relative;
-            box-shadow: 0 0 25px rgba(0,0,0,0.6);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
         }
 
         .title-green {
@@ -137,61 +134,46 @@ if(isset($_POSt['actionformodification'])){
 
 <body>
 
-<div class="overlay-dark" id="themeModal">
-    <div class="box-dark">
+    <div class="overlay-dark" id="themeModal">
+        <div class="box-dark">
 
-        <h2 class="title-green">Theme Settings</h2>
+            <h2 class="title-green">Theme Settings</h2>
 
-        <form action="theme.php" method="POST" id="themeForm">
+            <form action="./servicetheme.php" method="POST" id="themeForm">
 
-            <div class="group-dark">
-                <label>Theme Name</label>
-                <input type="text"
-                       placeholder="Enter theme name"
-                       name="themeName"
-                       class="input-dark"
-                       id="themename"
-                       value="  "
-                       >
-            </div>
+                <div class="group-dark">
+                    <label>Theme Name</label>
+                    <input type="text" placeholder="Enter theme name" name="newthemeName" class="input-dark"
+                        id="themename" value="  ">
+                </div>
 
-            <div class="group-dark-alt">
-                <label for="maxNotes">Max Notes</label>
-                <input type="number"
-                      
-                       name="maxNotes"
-                       value=" "
-                       >
-            </div>
+                <div class="group-dark-alt">
+                    <label for="maxNotes">Max Notes</label>
+                    <input type="number" name="newmaxNotes" value=" ">
+                </div>
 
-            <span>Background Color :</span>
-            <input type="color"
-                   value="  "
-                   name="backgroundColor"
-                  >
-
-            <!-- KEPT EXACTLY -->
-           
-
-            <div class="actions-green">
+                <span>Background Color :</span>
+                <input type="color" value="  " name="newbackgroundColor">
                 
+                <!-- KEPT EXACTLY -->
 
-                <input type="submit"
-                       class="btn-modify"
-                       name="actionformodification"
-                       value="Update"
-                      >
-            </div>
 
-            <div id="thememodalerror"
-                 style="color:red;text-align:center;margin-top:5px;"></div>
+                <div class="actions-green">
 
-        </form>
+                    <input  type="hidden" name="themeId" value="<?= $themeID ?>">
+                    <input type="submit" class="btn-modify" name="modifybtn" value="update">
+                </div>
 
-        
 
+                <div id="thememodalerror" style="color:red;text-align:center;margin-top:5px;"></div>
+
+            </form>
+
+
+
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

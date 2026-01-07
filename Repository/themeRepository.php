@@ -53,7 +53,7 @@ class ThemeRepository {
             $query = "SELECT * FROM themes WHERE userId = :userId ORDER BY id DESC";
             $connection = $this->pdo->connection();
             $stmt = $connection->prepare($query);
-            $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
+            $stmt->bindParam(":userId", $userId);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
@@ -109,27 +109,39 @@ class ThemeRepository {
     
     public function update($theme){
         try {
-            $query = "UPDATE themes SET themeName = :themename, bColor = :color, 
+            $query = "UPDATE Themes SET themeName = :themename, bColor = :color, 
                       notesNumber = :notesnumber WHERE id = :id";
             $connection = $this->pdo->connection();
             $stmt = $connection->prepare($query);
             
             
-            $themename = $_POST['themeName'];
-            $color =$_POST['backgroundColor'];
-            $notesnumber = $_POST['maxNotes'];
+            $themename = $theme->themename;
+            $color = $theme->color;
+            $notesnumber = $theme->notesnumber;
             $id = $theme->id;
             
             $stmt->bindParam(":themename", $themename);
             $stmt->bindParam(":color", $color);
             $stmt->bindParam(":notesnumber", $notesnumber);
             $stmt->bindParam(":id", $id);
-            
-            return $stmt->execute();
+            $stmt->execute();
         } catch(PDOException $e) {
             echo "Theme update error: " . $e->getMessage();
             return false;
         }
     }
+    public function findName($id){
+        try{
+        $sql="SELECT themeName FROM Themes WHERE id=:id;";
+         $connection = $this->pdo->connection();
+         $stmt=$connection->prepare($sql);
+         $stmt->bindParam(":id",$id);
+         return $stmt->execute();
+    }
+  
+    catch(PDOException $e){
+         echo"filed to find".$e->getMessage();
+         return false;
+    }
 }
-?>
+}

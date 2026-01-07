@@ -16,13 +16,11 @@ class Theme{
 
     public function setid($id){
         if(!is_numeric($id) || $id <= 0){
-            echo "This id: " . $id . " does not exist";
             exit();
         }
         $this->id = $id;
     }
 
-    
     public function __get($property) {
             return $this->$property;
        
