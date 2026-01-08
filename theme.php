@@ -98,7 +98,15 @@ $themes = $themeRepo->findAll($userid);
                     <input type="number" id="maxNotes" name="maxNotes" min="1" placeholder="Enter max number of notes"
                         required>
                 </div>
-
+                 
+                    <div class="input-group">
+                    <label for="visibilty">visibilty</label>
+                    <select name="visibilty" id="vis">
+                    <option value="public">public</option>
+                    <option value="private">private</option>
+                    </select>
+                    </div>
+                  
                 <div class="input-group">
                     <label>Background Color:</label>
                     <input type="color" value="#09ff00" name="backgroundColor" id="bgColor">
@@ -132,7 +140,7 @@ $themes = $themeRepo->findAll($userid);
                         <div class="favorite-checkbox">
                             <form action="./servicetheme.php" method="POST">
                             <input type="hidden" name="favoritID" value="<?= $theme->id ?>">
-                            <input type="hidden" name="UserId" value="<?= $theme->userId ?>">
+                            <input type="hidden" name="UserId" value="<?= $userid ?>">
                             <input type="checkbox" id="favorite-<?= $theme->id ?>" name="favorite" value="<?= $theme->id ?>">
                             <label for="favorite-<?= $theme->id ?>">★</label>
                             </form>
@@ -146,6 +154,10 @@ $themes = $themeRepo->findAll($userid);
                         </p>
                         <p class="theme-notes">
                             Max Notes: <?= $theme->notesnumber ?>
+                        </p>
+
+                         <p class="theme-notes">
+                           visibilty: <?= $theme->statu ?>
                         </p>
 
                         <div class="theme-actions" style="display: flex; gap: 20px;">

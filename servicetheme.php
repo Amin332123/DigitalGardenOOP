@@ -27,8 +27,9 @@ class serviceTheme
                 $noteNumbers = $_POST["maxNotes"];
                 $color = $_POST["backgroundColor"];
                 $userID = $_SESSION['id'];
+                $statu=$_POST["visibilty"];
 
-                $thm = new Theme($themename, $color, $noteNumbers, $userID);
+                $thm = new Theme($themename, $color, $noteNumbers, $userID,$statu);
                 $result = $this->themeRepository->create($thm);
 
                 if ($result) {
@@ -63,13 +64,15 @@ class serviceTheme
         $newName = $_POST["newthemeName"];
         $newColor = $_POST["newbackgroundColor"];
         $newNoteNumber = $_POST["newmaxNotes"];
+        $newVisibilty=$_POST["newvisibilty"];
         try {
             $theme = new Theme(
 
                 $newName,
                 $newColor,
                 $newNoteNumber,
-                $_SESSION['id']
+                $_SESSION['id'],
+                $newVisibilty
             );
 
             $theme->setId($_POST["themeId"]);
@@ -81,7 +84,7 @@ class serviceTheme
     }
     public function creatFavorite(){
         $themeID=$_POST["favorite"];
-        $userId=$_SESSION["id"];
+        $userId=$_POST["UserId"];
         try{
             $favo=new favorite($themeID,$userId);
              $this->themeRepository->favorite($favo);

@@ -1,6 +1,6 @@
 <?php
-include_once "./theme.php";
-include_once "./user.php";
+// include_once "./theme.php";
+// include_once "./user.php";
  class favorite{
     
        private $themeID;

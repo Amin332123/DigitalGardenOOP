@@ -11,8 +11,8 @@ class ThemeRepository {
    
     public function create($theme){
         try {
-            $sql = 'INSERT INTO themes (themeName, bColor, notesNumber, userId) 
-                    VALUES(:themename, :color, :notesnumber, :userId)';
+            $sql = 'INSERT INTO themes (themeName, bColor, notesNumber, userId,statu) 
+                    VALUES(:themename, :color, :notesnumber, :userId,:statu)';
             
             $connection = $this->pdo->connection();
             
@@ -27,11 +27,13 @@ class ThemeRepository {
             $color = $theme->color;
             $notesnumber = $theme->notesnumber;
             $userId = $theme->userId;
+            $statu= $theme->statu;
             
             $stmt->bindParam(":themename", $themename);
             $stmt->bindParam(":color", $color);
             $stmt->bindParam(":notesnumber", $notesnumber);
             $stmt->bindParam(":userId", $userId);
+            $stmt->bindParam(":statu", $statu);
             
             
             $stmt->execute();
@@ -59,7 +61,7 @@ class ThemeRepository {
 
             $themes = [];
             foreach ($result as $obj) {
-                $th = new Theme($obj->themeName, $obj->bColor, $obj->notesNumber, $obj->userId);
+                $th = new Theme($obj->themeName, $obj->bColor, $obj->notesNumber, $obj->userId,$obj->statu);
                 $th->setId($obj->id);
                 array_push($themes, $th);
             }
@@ -147,7 +149,7 @@ class ThemeRepository {
 
  public function favorite($favorite){
         try{
-            $qurey="INSERT INTO favorite(userID,themeID) VALUES(:userID,:themeID);";
+            $qurey="INSERT INTO favorite(userID,themeID) VALUES(:userID,:themeID)";
             $connection = $this->pdo->connection();
             $stmt=$connection->prepare($qurey);
             $stmt->bindParam(":userID",$favorite->userID);

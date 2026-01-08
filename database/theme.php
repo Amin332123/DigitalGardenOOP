@@ -6,12 +6,14 @@ class Theme{
     private $color;
     private $notesnumber;
     private $userId;
+    private $statu;
     
-    public function __construct($name, $color, $notesNumber, $userid){
+    public function __construct($name, $color, $notesNumber, $userid,$statu){
         $this->themename = $name;
         $this->color = $color;
         $this->notesnumber = $notesNumber;
         $this->userId = $userid;
+        $this->statu=$statu;
     }
 
     public function setid($id){

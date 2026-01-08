@@ -152,6 +152,16 @@ unset($_SESSION['themeID']);
                     <input type="number" name="newmaxNotes" value=" ">
                 </div>
 
+
+               <!-- visibilty -->
+                    <div class="input-group">
+                    <label for="newvisibilty">visibilty</label>
+                    <select name="newvisibilty" id="vis">
+                    <option value="public">public</option>
+                    <option value="private">private</option>
+                    </select>
+                    </div>
+
                 <span>Background Color :</span>
                 <input type="color" value="  " name="newbackgroundColor">
                 
