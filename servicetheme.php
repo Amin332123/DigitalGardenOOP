@@ -82,11 +82,20 @@ class serviceTheme
             die("Error Modify theme: " . $e->getMessage());
         }
     }
+
+    //  public function changeToArchive(){
+       
+        
+    //     $theme->makeItArchive($id);
+    //  }
+
+
     public function creatFavorite(){
-        $themeID=$_POST["favorite"];
+        $themeID=$_POST["themeid"];
         $userId=$_POST["UserId"];
         try{
-            $favo=new favorite($themeID,$userId);
+            $favo= new favorite($themeID,$userId);
+            
              $this->themeRepository->favorite($favo);
 
         }
@@ -114,11 +123,22 @@ if (isset($_POST["modify"]) && !empty($_POST["themeId"])) {
     $obj->deleteTheme();
    
 }
- else if (isset($_POST['favorite'])){
-    $obj->creatFavorite();
-    }
-else {
-    $obj->createTheme();
+else if(isset($_POST["Archive"])&& !empty($_POST["ArchiveThemeId"])){
+     $id=$_POST["ArchiveThemeId"];
+     $themeRepo=new ThemeRepository();
+      $themeRepo->makeItArchive($id);
+      header("Location: theme.php");
+     
 }
+
+ else if (isset($_POST['themeid'])){
+    $obj->creatFavorite();
+    header("Location: theme.php");
+    }
+    else{
+        $obj->createTheme();
+        header("Location: theme.php");
+    }
+
 
 

@@ -11,7 +11,7 @@ if (empty($_SESSION['id'])) {
 $userid = $_SESSION['id'];
 
 $themeRepo = new ThemeRepository();
-$themes = $themeRepo->findAll($userid);
+$themes = $themeRepo->findAllArchive($userid);
 
 
 
@@ -26,8 +26,6 @@ $themes = $themeRepo->findAll($userid);
     <title>My Themes - Digital Garden</title>
     <link rel="stylesheet" href="public/public/style/theme.css">
     <link rel="stylesheet" href="public/public/style/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body>
@@ -75,89 +73,11 @@ $themes = $themeRepo->findAll($userid);
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        #Archive-btn {
-         background-color: #e74c3c;   /* red */
-        color: #fff;
-        border: none;
-        padding: 10px 16px;
-        font-size: 14px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-        #Archive-btn:hover {
-        background-color: #c0392b;
-    }
-
-            #favorite-btn {
-            background: transparent;
-            border: none;
-            color: #f1c40f;        /* gold star */
-            font-size: 22px;
-            cursor: pointer;
-            padding: 6px;
-        }
-
-        #favorite-btn:hover {
-            color: #f39c12;        /* darker gold on hover */
-            transform: scale(1.2);
-        }
-
-        #favorite-btn:active {
-            transform: scale(1);
-        }
     </style>
 
 <!-- end style -->
 
 
-    <div class="create-btncontainer">
-        <button class="create-theme-btn" id="createTheme">Create New Theme</button>
-    </div>
-
-    <div class="modal-overlay" id="themeModal">
-        <div class="modal-box">
-            <h2 class="modal-title">Theme Settings</h2>
-
-            <form action="./servicetheme.php" method="POST" id="themeForm">
-                <div class="modal-input-group">
-                    <label>Theme Name</label>
-                    <input type="text" placeholder="Enter theme name" name="themeName" class="modal-input"
-                        id="themename" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="maxNotes">Max Notes</label>
-                    <input type="number" id="maxNotes" name="maxNotes" min="1" placeholder="Enter max number of notes"
-                        required>
-                </div>
-                 
-                    <div class="input-group">
-                    <label for="visibilty">visibilty</label>
-                    <select name="visibilty" id="vis">
-                    <option value="public">public</option>
-                    <option value="private">private</option>
-                    </select>
-                    </div>
-                  
-                <div class="input-group">
-                    <label>Background Color:</label>
-                    <input type="color" value="#09ff00" name="backgroundColor" id="bgColor">
-                </div>
-                    
-                <input type="hidden" name="formType" value="newtheme">
-
-                <div class="modal-actions">
-                    <button type="submit" class="create-btn" name="submiting">Create</button>
-                    <button type="button" class="modify-btn" id="modifyTheme" style="display:none;">Modify</button>
-                </div>
-
-                <div id="thememodalerror" style="color:red;text-align:center;margin-top:5px;"></div>
-            </form>
-
-            <span class="close-modal" id="closeModal">✕</span>
-        </div>
-    </div>
 
     <section class="themes-section" id="themesContainer">
         <?php if (empty($themes)): ?>
@@ -174,14 +94,9 @@ $themes = $themeRepo->findAll($userid);
                             <form action="./servicetheme.php" method="POST">
                             <input type="hidden" name="favoritID" value="<?= $theme->id ?>">
                             <input type="hidden" name="UserId" value="<?= $userid ?>">
-                            
+                            <input type="checkbox" id="favorite-<?= $theme->id ?>" name="favorite" value="<?= $theme->id ?>">
                           
-                            <button type="submit" name="themeid" id="favorite-btn" value="<?= $theme->id ?>">★</button>
-                            
-                             <input type="hidden" name="ArchiveThemeId" value="<?= $theme->id ?>">
-                           <button type="submit" id="Archive-btn" name="Archive" value="<?= $theme->id ?>">
-                                                <i class="fa fa-archive"></i>
-                                                  </button>
+                            <button type="submit" name="themeid" value="<?= $theme->id ?>">★</button>
                             </form>
                         </div>
                         <!-- end star -->

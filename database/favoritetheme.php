@@ -2,11 +2,11 @@
 // include_once "./theme.php";
 // include_once "./user.php";
  class favorite{
-    
+       private $id;
        private $themeID;
        private  $userID;
        public function __construct($themeID,$userID){
-      
+       
        $this->themeID=$themeID;
        $this->userID=$userID;
        }
@@ -18,7 +18,7 @@
         $this->id = $id;
          }
 
-    public function __get($property) {
+    public function &__get($property) {
         return $this->$property;
     }
  }

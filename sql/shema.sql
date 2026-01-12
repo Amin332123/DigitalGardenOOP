@@ -5,7 +5,9 @@ use Digital_Garden_OOP;
       name varchar(30),
       userName varchar(40),
       passsword varchar(40),
-      createdDate date
+      createdDate date,
+      role_ID INT,
+      Foreign Key (role_ID) REFERENCES role(id)
    );
 
    create table Themes (
@@ -42,3 +44,7 @@ Themes ADD COLUMN statu ENUM("private","public");
 
 
 SELECT * FROM Themes;
+ALTER Table Users add COLUMN Archive ENUM("Blocked","Active","Pending") DEFAULT "Pending"
+alter TABLE Themes DROP COLUMN Archive;
+ALTER TABLE Themes ADD COLUMN Archive BOOLEAN DEFAULT 0;
+

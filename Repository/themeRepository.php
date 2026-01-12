@@ -27,20 +27,13 @@ class ThemeRepository {
             $color = $theme->color;
             $notesnumber = $theme->notesnumber;
             $userId = $theme->userId;
-            $statu= $theme->statu;
-            
+            $statu= $theme->statu; 
             $stmt->bindParam(":themename", $themename);
             $stmt->bindParam(":color", $color);
             $stmt->bindParam(":notesnumber", $notesnumber);
             $stmt->bindParam(":userId", $userId);
             $stmt->bindParam(":statu", $statu);
-            
-            
             $stmt->execute();
-            
-          
-          
-            
             return $theme;
             
         } catch(PDOException $e) {
@@ -52,7 +45,33 @@ class ThemeRepository {
     public function findAll($userId)
     {
         try {
-            $query = "SELECT * FROM themes WHERE userId = :userId ORDER BY id DESC";
+            $query = "SELECT * FROM themes WHERE userId = :userId and Archive = 0 ORDER BY id DESC";
+            $connection = $this->pdo->connection();
+            $stmt = $connection->prepare($query);
+            $stmt->bindParam(":userId", $userId);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            $themes = [];
+            foreach ($result as $obj) {
+                $th = new Theme($obj->themeName, $obj->bColor, $obj->notesNumber, $obj->userId,$obj->statu);
+                $th->setId($obj->id);
+                array_push($themes, $th);
+            }
+
+            return $themes;
+
+        } catch(PDOException $e) {
+            echo "Theme fetch error: " . $e->getMessage();
+            return [];
+        }
+    }
+
+
+  public function findAllArchive($userId)
+    {
+        try {
+            $query = "SELECT * FROM themes WHERE userId = :userId and Archive = 1 ORDER BY id DESC";
             $connection = $this->pdo->connection();
             $stmt = $connection->prepare($query);
             $stmt->bindParam(":userId", $userId);
@@ -97,7 +116,7 @@ class ThemeRepository {
             $obj = $stmt->fetch(PDO::FETCH_OBJ);
             
             if($obj){
-                $th = new Theme($obj->themeName, $obj->bColor, $obj->notesNumber, $obj->userId);
+                $th = new Theme($obj->themeName, $obj->bColor, $obj->notesNumber, $obj->userId,$obj->$statu);
                 $th->setId($obj->id);
                 return $th;
             }
@@ -112,7 +131,7 @@ class ThemeRepository {
     public function update($theme){
         try {
             $query = "UPDATE Themes SET themeName = :themename, bColor = :color, 
-                      notesNumber = :notesnumber WHERE id = :id";
+                      notesNumber = :notesnumber ,statu=:statu WHERE id = :id";
             $connection = $this->pdo->connection();
             $stmt = $connection->prepare($query);
             
@@ -120,11 +139,13 @@ class ThemeRepository {
             $themename = $theme->themename;
             $color = $theme->color;
             $notesnumber = $theme->notesnumber;
+            $statu=$theme->statu;
             $id = $theme->id;
             
             $stmt->bindParam(":themename", $themename);
             $stmt->bindParam(":color", $color);
             $stmt->bindParam(":notesnumber", $notesnumber);
+            $stmt->bindParam(":statu", $statu);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
         } catch(PDOException $e) {
@@ -132,6 +153,23 @@ class ThemeRepository {
             return false;
         }
     }
+
+      public function makeItArchive($id){
+        try {
+            $query = "UPDATE Themes SET Archive=1 WHERE id = :id";
+              $connection = $this->pdo->connection();
+              $stmt = $connection->prepare($query);
+              $stmt->bindParam(":id",$id);
+              $stmt->execute();
+         } 
+         catch(PDOException $e) {
+            echo "Theme update error: " . $e->getMessage();
+            return false;
+        }
+
+      }
+
+
     public function findName($id){
         try{
         $sql="SELECT themeName FROM Themes WHERE id=:id;";
@@ -154,7 +192,7 @@ class ThemeRepository {
             $stmt=$connection->prepare($qurey);
             $stmt->bindParam(":userID",$favorite->userID);
             $stmt->bindParam(":themeID",$favorite->themeID);
-            return $stmt->execute();
+            $stmt->execute();
 
 
         }
